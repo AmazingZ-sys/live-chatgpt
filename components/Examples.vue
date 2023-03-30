@@ -36,6 +36,7 @@
   <el-icon class="cursor-pointer">
     <el-icon-grape />
   </el-icon>
+  <el-icon><ElIconRefresh /></el-icon>
   <el-icon class="cursor-pointer">
     <ElIconIceCream />
   </el-icon>

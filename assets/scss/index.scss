@@ -14,3 +14,9 @@ a {
   font-weight: 400;
   color: var(--el-color-primary);
 }
+
+.dark {
+  .sidebar {
+    background: var(--el-fill-color-light);
+  }
+}

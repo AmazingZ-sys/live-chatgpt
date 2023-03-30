@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { count } = useCount();
+// const { count } = useCount();
 </script>
 
 <template>
-  <el-input-number v-model="count" :min="1" :max="10" />
+<!--  <el-input-number v-model="count" :min="1" :max="10" />-->
 </template>

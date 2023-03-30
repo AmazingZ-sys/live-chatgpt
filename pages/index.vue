@@ -1,13 +1,10 @@
 <template>
-  <div class="page-index">
-    <Logos />
-    <Examples />
+  <div class="flex justify-between">
+    <Sidebar />
+    <Main />
   </div>
 </template>
 
 <style>
-.page-index {
-  padding-top: 60px;
-  text-align: center;
-}
+
 </style>
