@@ -3,13 +3,13 @@ export default defineNuxtConfig({
   app: {
     // head
     head: {
-      title: 'Element Plus + Nuxt 3',
+      title: 'Live chatgpt',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           hid: 'description',
           name: 'description',
-          content: 'ElementPlus + Nuxt3',
+          content: 'Nuxt3 + ElementPlus + Chatgpt',
         },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -28,7 +28,6 @@ export default defineNuxtConfig({
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',
-    '@pinia/nuxt',
     '@element-plus/nuxt',
     '@nuxtjs/color-mode'
   ],
