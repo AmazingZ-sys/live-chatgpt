@@ -1,4 +1,5 @@
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 export default defineNuxtConfig({
   app: {
     // head
@@ -14,6 +15,15 @@ export default defineNuxtConfig({
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     }
+  },
+
+  nitro: {
+    rollupConfig: {
+      // @ts-ignore
+      plugins: [
+        nodeResolve({exportConditions: ['node']}),
+      ],
+    },
   },
 
   // css
