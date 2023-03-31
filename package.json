@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxi dev",
-    "build": "nuxi build && mkdir .output/server/node_modules/@popperjs && mv .output/server/node_modules/@sxzz/popperjs-es .output/server/node_modules/@popperjs/core",
+    "build": "nuxi build && esno scripts/fixPopper.ts",
     "preview": "nuxi preview",
     "start": "node .output/server/index.mjs",
     "generate": "nuxi generate"
