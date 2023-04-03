@@ -16,7 +16,7 @@
         />
       </el-select>
     </div>
-    <el-button type="primary">{{ $t('apiKeySetting') }}</el-button>
+    <el-button type="primary" @click.stop="settingKey">{{ $t('apiKeySetting') }}</el-button>
     <div class="flex items-center">
       <span>{{ $t('language') }}:</span>
       <el-switch v-model="language" inline-prompt active-text="en" inactive-text="zh" size="large" class="m-l-2" />
@@ -33,6 +33,7 @@
 import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
 import zhCn from "element-plus/es/locale/lang/zh-cn";
+const { stateChangeHandler, useDialogState } = useDialog();
 const { gptModels, gptModelsOptions, gptModelsHandler } = useGptModels()
 const language = computed({
   get: () => locale.value === 'en',
@@ -43,6 +44,9 @@ const colorMode = computed({
   get: () => color.value === 'dark',
   set: () => (color.preference = color.value === 'dark' ? 'light' : 'dark'),
 });
+const settingKey = () => {
+  stateChangeHandler(!useDialogState.value)
+}
 </script>
 <style>
 .header-wrapper {

@@ -1,7 +1,8 @@
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between w-screen h-screen">
     <Sidebar />
     <Main />
+    <Dialog />
   </div>
 </template>
 

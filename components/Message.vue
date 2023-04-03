@@ -1,7 +1,7 @@
 <template>
-  <div class="message-wrapper flex items-center" :class="[role === 'system' ? 'justify-start' : 'justify-end']">
-    <div class="message p-4 rounded bg-gray-500">
-      <div v-if="!isImgResponse" v-html="htmlString" />
+  <div class="message-wrapper flex" :class="[role === 'system' ? 'justify-start' : 'justify-end']">
+    <div class="message p-4 rounded border border-gray-500" :class="[role === 'system' ? 'rounded-tl-none' : 'rounded-tr-none']">
+      <div v-if="!isImgResponse" v-html="$mdRenderer.render(testMd)" />
       <img :src="message" alt="" v-else />
     </div>
     <img :src="avatar" alt="" class="w-8 h-8 rounded-3xl bg-gray-400" />
@@ -12,15 +12,6 @@
 // types
 import type { MessageProps } from '~/@type'
 import { defineComponent } from "@vue/runtime-core";
-import MarkdownIt from 'markdown-it';
-import MdHighlight from 'markdown-it-highlightjs';
-// @ts-ignore
-import MdKatex from 'markdown-it-katex';
-import Highlightjs from 'highlight.js';
-import regex from 'highlight.js/lib/languages/ini';
-// style
-import 'highlight.js/styles/atom-one-dark.css';
-import 'katex/dist/katex.min.css';
 
 const testMd = `
 # My Markdown Document
@@ -42,8 +33,6 @@ $$
 $$
 `;
 
-Highlightjs.registerLanguage('regex', regex);
-
 export default defineComponent({
   setup(props: MessageProps) {
     const { id, role, message } = props
@@ -58,36 +47,13 @@ export default defineComponent({
       'https://oaidalleapiprodscus.blob.core.windows.net/private'
     );
 
-    const htmlString = () => {
-      const md = MarkdownIt()
-        .use(MdHighlight, {
-          hljs: Highlightjs,
-        })
-        .use(MdKatex);
-      const fence = md.renderer.rules.fence;
-      if (!fence) return '';
-      md.renderer.rules.fence = (...args) => {
-        const [tokens, idx] = args;
-        const token = tokens[idx];
-        const rawCode = fence(...args);
-        return `<div class='highlight-js-pre-container'>
-        <div id class="copy" data-code=${encodeURIComponent(token.content)}>
-        <i class="fa fa-clipboard" aria-hidden="true"></i>
-        </div>
-        ${rawCode}
-        </div>`;
-      };
-      // return md.render(testMd);
-      return md.render(testMd || '');
-    };
-
     return {
       id,
       role,
       message,
       avatar,
       isImgResponse,
-      htmlString
+      testMd
     }
   }
 })
