@@ -3,6 +3,7 @@
     <Header />
     <Content />
     <TextArea />
+    <Dialog />
   </div>
 </template>
 
