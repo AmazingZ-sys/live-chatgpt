@@ -32,7 +32,6 @@
 <script lang="ts" setup>
 import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
-import zhCn from "element-plus/es/locale/lang/zh-cn";
 const { stateChangeHandler, useDialogState } = useDialog();
 const { gptModels, gptModelsOptions, gptModelsHandler } = useGptModels()
 const language = computed({
