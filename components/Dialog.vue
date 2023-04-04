@@ -45,6 +45,16 @@ const dialogCancel = (e?: MouseEvent) => {
   stateChangeHandler(!useDialogState)
 }
 
+// get api key
+watch([useDialogState, useDialogType], ([state, type], [oldState, oldType]) => {
+  if (state && type === 'enterApiKey') {
+    const openaiApiKey = localStorage.getItem('openaiApiKey')
+    if (openaiApiKey) {
+      formData.apiKey = openaiApiKey;
+    }
+  }
+})
+
 // apiKey confirm
 const saveApiKey = () => {
   localStorage.setItem('openaiApiKey', formData.apiKey)

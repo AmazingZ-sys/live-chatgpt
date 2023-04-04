@@ -1,13 +1,29 @@
 <template>
   <div class="content-wrapper flex-1 border-b border-b border-gray-400 flex flex-col relative p-t-4 px-4 overflow-auto">
-    <Message />
-    <Message />
-    <Message />
+<!--    <Message />-->
+<!--    <Message />-->
+<!--    <Message />-->
+    <div class="none-apikey w-full h-full flex flex-col items-center justify-center" v-if="!hasApiKey">
+      <span class="text-3xl">{{ $t('apikeyRequired') }}</span>
+      <span class="text-lg">{{ $t('apikeyTip1') }}</span>
+      <span class="text-lg">{{ $t('getApikey') }} <a href="https://www.openai.com" target="_blank">{{ $t('openaiLink') }}</a></span>
+    </div>
+    <template v-else>
+
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-
+const hasApiKey = ref(false)
+onMounted(() => {
+  console.log("onMounted")
+  const openaiApiKey = localStorage.getItem('openaiApiKey');
+  console.log(openaiApiKey, "==============>openaiApiKey")
+  if (openaiApiKey) {
+    hasApiKey.value = true
+  }
+})
 </script>
 
 <style>

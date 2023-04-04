@@ -15,7 +15,7 @@
       <el-icon><ElIconStamp /></el-icon>
       <div class="flex items-center justify-end w-full">
         <span>{{ $t('recent') }}  </span>
-        <div class="w-20">
+        <div class="w-10">
           <el-input v-model="useContextNum" placeholder="Please input" clearable />
         </div>
         <span>  {{ $t('context') }}</span>
