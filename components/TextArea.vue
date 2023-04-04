@@ -14,11 +14,11 @@
     <div class="supplement flex items-center justify-between w-full">
       <el-icon><ElIconStamp /></el-icon>
       <div class="flex items-center justify-end w-full">
-        <span>{{ $t('recent') }}</span>
+        <span>{{ $t('recent') }}  </span>
         <div class="w-20">
           <el-input v-model="useContextNum" placeholder="Please input" clearable />
         </div>
-        <span>{{ $t('context') }}</span>
+        <span>  {{ $t('context') }}</span>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
 const { useContextNum } = useContext()
 const textarea = ref('')
 const loading = ref(false)
-const submit = (e: MouseEvent | string) => {
+const submit = (e?: MouseEvent) => {
   console.log("lalalaalalaal")
 }
 const keyDown = (e: KeyboardEvent) => {
@@ -37,7 +37,7 @@ const keyDown = (e: KeyboardEvent) => {
   if (e.ctrlKey && e.keyCode === 13) {
     textarea.value += '\n'
   } else {
-    submit('')
+    submit()
   }
 }
 

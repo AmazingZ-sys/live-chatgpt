@@ -7,7 +7,7 @@
         <div
           class="flex items-center"
           v-if="useDialogType === 'enterApiKey'">
-          <el-form :model="formData">
+          <el-form :model="formData" class="w-full">
             <el-form-item label="apiKey" :label-width="formLabelWidth">
               <el-input v-model="formData.apiKey" autocomplete="off" />
             </el-form-item>
@@ -15,9 +15,9 @@
         </div>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click.stop="stateChangeHandler(!useDialogState)">Cancel</el-button>
+            <el-button @click.stop="dialogCancel">{{ $t('cancel') }}</el-button>
             <el-button type="primary" @click.stop="dialogConfirm">
-              Confirm
+              {{ $t('confirm') }}
             </el-button>
           </span>
         </template>
@@ -26,8 +26,9 @@
 <script lang="ts" setup>
 const { useDialogState, useDialogType, typeChangeHandler, stateChangeHandler } = useDialog()
 
-const formLabelWidth = '140px'
+const formLabelWidth = '60px'
 
+// form data
 const formData = reactive({
   apiKey: ''
 })
@@ -39,9 +40,15 @@ const dialogConfirm = (e: MouseEvent) => {
   }
 }
 
+// cancel fn
+const dialogCancel = (e?: MouseEvent) => {
+  stateChangeHandler(!useDialogState)
+}
+
 // apiKey confirm
 const saveApiKey = () => {
   localStorage.setItem('openaiApiKey', formData.apiKey)
+  dialogCancel()
 }
 
 </script>

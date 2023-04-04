@@ -5,5 +5,7 @@ export default {
   model: 'Model',
   submit: 'Generator',
   recent: 'Last',
-  context: 'messages as context'
+  context: 'messages as context',
+  cancel: 'Cancel',
+  confirm: 'Confirm'
 }
