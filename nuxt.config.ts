@@ -42,8 +42,18 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@element-plus/nuxt',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
+    '@pinia/nuxt'
   ],
+
+  // pinia
+  imports: {
+    dirs: ['./stores'],
+  },
+
+  pinia: {
+    autoImports: ['defineStore', 'acceptHMRUpdate'],
+  },
 
   // vueuse
   vueuse: {
@@ -71,6 +81,8 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  // element
   elementPlus: {
     icon: 'ElIcon',
     importStyle: 'scss',

@@ -4,13 +4,38 @@
       <el-icon v-if="!sidebarState"><ElIconDArrowLeft /></el-icon>
       <el-icon v-else><ElIconDArrowRight /></el-icon>
     </div>
-    <el-button type="primary" v-show="!sidebarState">+ {{ $t('newChat') }}</el-button>
+    <el-button type="primary" v-show="!sidebarState" @click="">+ {{ $t('newChat') }}</el-button>
+
   </div>
 </template>
 
 <script lang="ts" setup>
+import { v4 as uuid } from 'uuid'
+import { ChatService } from '~/db'
 
 const { sidebarState, sidebarChange } = useSidebar();
+
+const chatDB = new ChatService()
+
+const historyTopicList = ref<{id: string, name: string}[]>([])
+
+const newChat = () => {
+  const topicId = uuid();
+
+  const topicName = `Chat ${topicId.slice(0, 6)}`;
+
+  const topic = {
+    id: topicId,
+    name: topicName,
+    createdAt: Date.now(),
+  };
+
+  chatDB.addTopic(topic);
+  historyTopicList.value = [topic, ...historyTopicList.value]
+  changeActiveTopicId(topicId);
+  updateCurrentMessageList([]);
+};
+
 
 </script>
 
