@@ -20,3 +20,16 @@ a {
     background: var(--el-fill-color-light);
   }
 }
+
+.w-0 {
+  width: 0;
+}
+.p-0 {
+  padding: 0;
+}
+.sidebar {
+  gap: 12px;
+}
+.margin-none {
+  margin: 0!important;
+}

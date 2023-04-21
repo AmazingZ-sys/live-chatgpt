@@ -3,6 +3,9 @@
 <!--    <Message />-->
 <!--    <Message />-->
 <!--    <Message />-->
+    <template v-for="(item, index) in messageStore.currentMessageList" :key="`message_list_${index}`">
+      <Message :id="item.id" :role="item.role" :message="item.content" />
+    </template>
     <div class="none-apikey w-full h-full flex flex-col items-center justify-center" v-if="!hasApiKey">
       <span class="text-3xl">{{ $t('apikeyRequired') }}</span>
       <span class="text-lg">{{ $t('apikeyTip1') }}</span>
@@ -16,6 +19,9 @@
 
 <script lang="ts" setup>
 const hasApiKey = ref(false)
+
+const messageStore = useMessage()
+
 onMounted(() => {
   console.log("onMounted")
   const openaiApiKey = localStorage.getItem('openaiApiKey');

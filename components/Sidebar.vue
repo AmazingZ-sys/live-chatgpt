@@ -4,22 +4,68 @@
       <el-icon v-if="!sidebarState"><ElIconDArrowLeft /></el-icon>
       <el-icon v-else><ElIconDArrowRight /></el-icon>
     </div>
-    <el-button type="primary" v-show="!sidebarState" @click="">+ {{ $t('newChat') }}</el-button>
-
+    <el-button type="primary" v-show="!sidebarState" @click="newTopic">+ {{ $t('newChat') }}</el-button>
+    <el-button
+      :type="item.id === topicStore.activeTopicId ? 'primary' : ''"
+      class="w-full margin-none"
+      v-for="(item, index) in topicStore.topicList"
+      :key="item.topicId"
+      @click="topicChangeHandle(item)">
+      {{ item.name }}
+    </el-button>
+<!--    <div class="topic-item w-full p-3 rounded-lg" v-for="(item, index) in topicStore.topicList" :class="{'bg-purple-700': item.id === topicStore.activeTopicId}" :key="item.topicId">-->
+<!--      {{ item.name }}-->
+<!--    </div>-->
   </div>
 </template>
 
 <script lang="ts" setup>
 import { v4 as uuid } from 'uuid'
 import { ChatService } from '~/db'
+import type { TopicItem } from "~/@type";
 
 const { sidebarState, sidebarChange } = useSidebar();
+
+const topicStore = useTopic()
+
+const messageStore = useMessage()
 
 const chatDB = new ChatService()
 
 const historyTopicList = ref<{id: string, name: string}[]>([])
 
-const newChat = () => {
+onMounted(() => {
+  getTopicList()
+})
+
+watch(() => topicStore.topicList, ([val, old]) => {
+  console.log(val, "================>val")
+})
+
+const topicChangeHandle = async (obj: TopicItem) => {
+  const { id, name, createdAt } = obj
+  topicStore.updateActiveTopicId(id)
+  const messageList = await chatDB.getConversationsByTopicId(id)
+  console.log(messageList, "=============>message")
+  messageStore.updateCurrentMessage(messageList)
+}
+
+const getTopicList = async () => {
+  let topicList = await chatDB.getTopics()
+  console.log(topicList, "==============>topic")
+  if (!topicList.length) {
+    newTopic()
+    return
+  }
+
+  topicStore.updateTopicList(topicList)
+  topicStore.updateActiveTopicId(topicList[0].id)
+  const messageList = await chatDB.getConversationsByTopicId(topicList[0].id)
+  console.log(messageList, "=============>message")
+  messageStore.updateCurrentMessage(messageList)
+}
+
+const newTopic = () => {
   const topicId = uuid();
 
   const topicName = `Chat ${topicId.slice(0, 6)}`;
@@ -31,19 +77,17 @@ const newChat = () => {
   };
 
   chatDB.addTopic(topic);
-  historyTopicList.value = [topic, ...historyTopicList.value]
-  changeActiveTopicId(topicId);
-  updateCurrentMessageList([]);
+  topicStore.updateTopicList([topic, ...topicStore.topicList])
+  // historyTopicList.value = [topic, ...historyTopicList.value]
+  // changeActiveTopicId(topicId);
+  topicStore.updateActiveTopicId(topicId)
+  // updateCurrentMessageList([]);
+  messageStore.updateCurrentMessage([])
 };
 
 
 </script>
 
 <style>
-.w-0 {
-  width: 0;
-}
-.p-0 {
-  padding: 0;
-}
+
 </style>

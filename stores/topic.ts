@@ -1,5 +1,5 @@
 type TopicType = []
-const useTopic = defineStore('topic', {
+export const useTopic = defineStore('topicStore', {
   state: () => ({
     topicList: [],
     activeTopicId: ''

@@ -3,3 +3,9 @@ export interface MessageProps {
   id?: number,
   role?: string
 }
+
+export interface TopicItem {
+  id: string,
+  name: string,
+  createdAt: number
+}

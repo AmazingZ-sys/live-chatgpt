@@ -6,10 +6,14 @@
         :rows="2"
         type="textarea"
         :disabled="loading"
-        placeholder="Please input"
-        @keydown.enter="keyDown"
-      />
-      <el-button type="primary" :disabled="loading" @click="submit">{{ $t('submit') }}</el-button>
+        :placeholder="$t('inputPlaceholder')"
+        @keydown="keyDown"
+      >
+        <template #prefix v-if="loading">
+          <el-icon class="el-input__icon"><ElIconSearch /></el-icon>
+        </template>
+      </el-input>
+<!--      <el-button type="primary" :disabled="loading" @click="submit">{{ $t('submit') }}</el-button>-->
     </div>
     <div class="supplement flex items-center justify-between w-full">
       <el-icon><ElIconStamp /></el-icon>
@@ -26,17 +30,14 @@
 
 <script lang="ts" setup>
 const { useContextNum } = useContext()
+const messageStore = useMessage()
 const textarea = ref('')
 const loading = ref(false)
 const submit = (e?: MouseEvent) => {
   console.log("lalalaalalaal")
 }
 const keyDown = (e: KeyboardEvent) => {
-  console.log(e.ctrlKey, "keydown")
-  console.log(e.keyCode, "keyCode")
   if (e.ctrlKey && e.keyCode === 13) {
-    textarea.value += '\n'
-  } else {
     submit()
   }
 }
