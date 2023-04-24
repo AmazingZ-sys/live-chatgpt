@@ -8,7 +8,7 @@
     </template>
     <div class="none-apikey w-full h-full flex flex-col items-center justify-center" v-if="!hasApiKey">
       <span class="text-3xl">{{ $t('apikeyRequired') }}</span>
-      <span class="text-lg">{{ $t('apikeyTip1') }}</span>
+      <span class="text-lg">{{ $t('apikeyTip') }}</span>
       <span class="text-lg">{{ $t('getApikey') }} <a href="https://www.openai.com" target="_blank">{{ $t('openaiLink') }}</a></span>
     </div>
     <template v-else>
@@ -18,7 +18,11 @@
 </template>
 
 <script lang="ts" setup>
+
+
 const hasApiKey = ref(false)
+
+const globalStore = useGlobal()
 
 const messageStore = useMessage()
 
@@ -28,6 +32,7 @@ onMounted(() => {
   console.log(openaiApiKey, "==============>openaiApiKey")
   if (openaiApiKey) {
     hasApiKey.value = true
+    globalStore.updateApikey(openaiApiKey)
   }
 })
 </script>

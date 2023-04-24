@@ -9,7 +9,7 @@ export default {
   cancel: 'Cancel',
   confirm: 'Confirm',
   apikeyRequired: 'OpenAI API Key Required',
-  apikeyTip1: 'Please set up your OpenAI API key.',
+  apikeyTip: 'Please set up your OpenAI API key.',
   getApikey: 'If you do not have an OpenAI API key, you can get one here:',
   openaiLink: 'Open Ai Platform',
   inputPlaceholder: 'Press Ctrl + Enter to send to GPT after inputting.'

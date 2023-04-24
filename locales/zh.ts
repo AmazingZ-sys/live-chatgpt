@@ -9,7 +9,7 @@ export default {
   cancel: '取消',
   confirm: '确认',
   apikeyRequired: '你必须有 OpenAI API Key',
-  apikeyTip1: '请设置您的OpenAI API密钥',
+  apikeyTip: '请设置您的OpenAI API密钥',
   getApikey: '如果您没有OpenAI API密钥，可以在这里获取：',
   openaiLink: 'Open Ai Platform',
   inputPlaceholder: '输入完成后按 Ctrl + Enter 发送到 GPT'
