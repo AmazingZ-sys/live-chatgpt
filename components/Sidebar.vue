@@ -30,11 +30,12 @@ const topicStore = useTopic()
 
 const messageStore = useMessage()
 
-const chatDB = new ChatService()
+let chatDB: ChatService | null = null
 
 const historyTopicList = ref<{id: string, name: string}[]>([])
 
 onMounted(() => {
+  chatDB = new ChatService()
   getTopicList()
 })
 
